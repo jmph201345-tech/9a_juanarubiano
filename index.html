@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia Gamer</title>
+    <style>
+        :root {
+            --fondo: #121212;
+            --texto: #F5F5F5;
+            --acento: #00E676;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .titulo {
+            font-size: 2rem;
+            color: var(--acento);
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .h-titulo {
+            font-size: 1.5rem;
+            color: var(--acento);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            border-bottom: 3px solid var(--acento);
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.15);
+        }
+
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            border: 2px solid var(--acento);
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+        }
+
+        .conten-principal {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .presentacion {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 30px;
+            width: 100%;
+        }
+
+        .conten-imagen {
+            width: 180px;
+            height: 180px;
+            border: 3px solid var(--acento);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.3);
+            flex-shrink: 0;
+        }
+
+        .conten-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .conten-parrafo {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .parrafo {
+            font-size: 1.05rem;
+            color: #c9c9c9;
+            margin-top: 10px;
+        }
+
+        .botones_1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .boton_1 {
+            display: inline-block;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #121212;
+            background-color: var(--acento);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.35);
+        }
+
+        .boton_1:hover {
+            transform: translateY(-3px);
+            background-color: #00c853;
+            box-shadow: 0 8px 22px rgba(0, 230, 118, 0.55);
+        }
+
+        .boton_1:active {
+            transform: translateY(0);
+        }
+
+        .horario {
+            width: 100%;
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .tabla {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            overflow-x: auto;
+        }
+
+        .tabla th,
+        .tabla td {
+            border: 1px solid #2a2a2a;
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        .tabla th {
+            background-color: #202020;
+            color: var(--acento);
+            font-weight: 600;
+        }
+
+        .tabla tr:nth-child(even) {
+            background-color: #1e1e1e;
+        }
+
+        .tabla tr:hover {
+            background-color: #242424;
+        }
+
+        .contenedor-tabla {
+            overflow-x: auto;
+        }
+
+        .modo-hacker th {
+            background-color: #00E676 !important;
+            color: #121212 !important;
+        }
+
+        .modo-hacker td {
+            background-color: #00E676 !important;
+            color: #121212 !important;
+        }
+
+        .menu {
+            width: 100%;
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 25px;
+        }
+
+        .lista-menu {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .lista-menu li {
+            padding: 12px 15px;
+            border-bottom: 1px solid #2a2a2a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lista-menu li:last-child {
+            border-bottom: none;
+        }
+
+        .lista-menu li::before {
+            content: "▶";
+            color: var(--acento);
+            font-size: 0.8rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 3px solid var(--acento);
+            background-color: #1a1a1a;
+            font-size: 0.9rem;
+            color: #8a8a8a;
+        }
+
+        footer span {
+            color: var(--acento);
+        }
+
+        @media (max-width: 768px) {
+            .titulo {
+                font-size: 1.6rem;
+            }
+
+            .h-titulo {
+                font-size: 1.25rem;
+            }
+
+            .conten-imagen {
+                width: 140px;
+                height: 140px;
+            }
+
+            .boton_1 {
+                width: 100%;
+            }
+
+            .presentacion {
+                padding: 20px;
+            }
+
+            .tabla th,
+            .tabla td {
+                font-size: 0.8rem;
+                padding: 7px 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo {
+                font-size: 1.35rem;
+            }
+
+            .conten-imagen {
+                width: 110px;
+                height: 110px;
+            }
+
+            .parrafo {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="contenedor">
+            <div class="logo">🎮</div>
+            <h1 class="titulo">Academia Gamer</h1>
+        </div>
+    </header>
+
+    <main class="conten-principal">
+
+        <section class="presentacion" id="presentacion">
+            <div class="conten-imagen">
+                <img src="avatar.png" alt="Avatar de gamer" onerror="this.style.display='none'">
+            </div>
+            <div class="conten-parrafo">
+                <h2 class="h-titulo">Juana Valentina</h2>
+                <p class="parrafo">
+                    ¡Bienvenido a mi Academia Gamer! Soy Juana Valentina, me encanta bailar,
+                    los videojuegos y pasar tiempo con mis amigos. Aquí encontrarás mi horario
+                    escolar y todo lo relacionado con el mundo gamer.
+                </p>
+                <div class="botones_1">
+                    <button class="boton_1" id="btn-horario">Ver horario</button>
+                    <button class="boton_1" id="btn-menu">Ir al menú</button>
+                    <button class="boton_1" id="btn-registro">Registrarse</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="horario" id="horario">
+            <h2 class="h-titulo">Horario Escolar</h2>
+            <div class="contenedor-tabla">
+                <table class="tabla" id="tabla-clases">
+                    <tr>
+                        <th>Día 1</th>
+                        <th>Día 2</th>
+                        <th>Día 3</th>
+                        <th>Día 4</th>
+                        <th>Día 5</th>
+                        <th>Día 6</th>
+                        <th>Día 7</th>
+                    </tr>
+                    <tr>
+                        <td>Biología</td>
+                        <td>Edu. física</td>
+                        <td>Español</td>
+                        <td>Francés</td>
+                        <td>Biología</td>
+                        <td>Edu. física</td>
+                        <td>Inglés</td>
+                    </tr>
+                    <tr>
+                        <td>Geometría</td>
+                        <td>Sociales</td>
+                        <td>Sociales</td>
+                        <td>Español</td>
+                        <td>Math</td>
+                        <td>Inglés (MEL)</td>
+                        <td>Sociales</td>
+                    </tr>
+                    <tr>
+                        <td>Descanso</td>
+                        <td>Descanso</td>
+                        <td>Descanso</td>
+                        <td>Descanso</td>
+                        <td>Descanso</td>
+                        <td>Descanso</td>
+                        <td>Descanso</td>
+                    </tr>
+                    <tr>
+                        <td>Español</td>
+                        <td>Francés</td>
+                        <td>Math</td>
+                        <td>Tech</td>
+                        <td>Inglés</td>
+                        <td>Francés</td>
+                        <td>Robótica</td>
+                    </tr>
+                    <tr>
+                        <td>Sociales</td>
+                        <td>Math</td>
+                        <td>Física</td>
+                        <td>Inglés</td>
+                        <td>Sociales</td>
+                        <td>Math</td>
+                        <td>Química</td>
+                    </tr>
+                    <tr>
+                        <td>Francés</td>
+                        <td>Skills</td>
+                        <td>Danzas</td>
+                        <td>Ética</td>
+                        <td>Dibujo</td>
+                        <td>Sociales</td>
+                        <td>Biología</td>
+                    </tr>
+                    <tr>
+                        <td>Break</td>
+                        <td>Break</td>
+                        <td>Break</td>
+                        <td>Break</td>
+                        <td>Break</td>
+                        <td>Break</td>
+                        <td>Break</td>
+                    </tr>
+                    <tr>
+                        <td>Cátedra de la paz</td>
+                        <td>Español</td>
+                        <td>PILEO</td>
+                        <td>Biología</td>
+                        <td>Skills</td>
+                        <td>PILEO</td>
+                        <td>Español</td>
+                    </tr>
+                    <tr>
+                        <td>Inglés</td>
+                        <td>Inglés</td>
+                        <td>Biología</td>
+                        <td>Math</td>
+                        <td>Danzas</td>
+                        <td>Informática</td>
+                        <td>Math</td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+
+        <section class="menu" id="menu">
+            <h2 class="h-titulo">Menú</h2>
+            <ul class="lista-menu">
+                <li>Perfil del jugador</li>
+                <li>Logros y trofeos</li>
+                <li>Misiones diarias</li>
+                <li>Ranking de amigos</li>
+                <li>Tienda de recompensas</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Academia Gamer &copy; 2026 · Hecho con <span>♥</span> por Juana Valentina</p>
+    </footer>
+
+    <script>
+        const btnHorario = document.getElementById('btn-horario');
+        const btnMenu = document.getElementById('btn-menu');
+        const btnRegistro = document.getElementById('btn-registro');
+
+        btnHorario.addEventListener('click', () => {
+            document.getElementById('horario').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        btnMenu.addEventListener('click', () => {
+            document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        btnRegistro.addEventListener('click', () => {
+            window.location.href = 'registro.html';
+        });
+    </script>
+</body>
+</html>
