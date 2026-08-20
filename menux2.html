@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia Gamer · Menú</title>
+    <style>
+        :root {
+            --fondo: #121212;
+            --texto: #F5F5F5;
+            --acento: #00E676;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .titulo {
+            font-size: 2rem;
+            color: var(--acento);
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .h-titulo {
+            font-size: 1.5rem;
+            color: var(--acento);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            border-bottom: 3px solid var(--acento);
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.15);
+        }
+
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            border: 2px solid var(--acento);
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+        }
+
+        .conten-principal {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 20px;
+        }
+
+        .menu {
+            width: 100%;
+            max-width: 640px;
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.12);
+            animation: aparecer 0.5s ease;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .saludo {
+            font-size: 1.6rem;
+            color: var(--acento);
+            text-align: center;
+            margin-bottom: 5px;
+            word-break: break-word;
+        }
+
+        .subtitulo {
+            font-size: 1rem;
+            color: #c9c9c9;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .botones-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .boton_1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #121212;
+            background-color: var(--acento);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.35);
+        }
+
+        .boton_1:hover {
+            transform: translateY(-3px);
+            background-color: #00c853;
+            box-shadow: 0 8px 22px rgba(0, 230, 118, 0.55);
+        }
+
+        .boton_1:active {
+            transform: translateY(0);
+        }
+
+        .boton_cerrar {
+            background-color: #FF5252;
+            box-shadow: 0 4px 12px rgba(255, 82, 82, 0.35);
+        }
+
+        .boton_cerrar:hover {
+            background-color: #e04545;
+            box-shadow: 0 8px 22px rgba(255, 82, 82, 0.55);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 3px solid var(--acento);
+            background-color: #1a1a1a;
+            font-size: 0.9rem;
+            color: #8a8a8a;
+        }
+
+        footer span {
+            color: var(--acento);
+        }
+
+        @media (max-width: 480px) {
+            .titulo {
+                font-size: 1.35rem;
+            }
+
+            .h-titulo {
+                font-size: 1.25rem;
+            }
+
+            .menu {
+                padding: 25px;
+            }
+
+            .saludo {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="contenedor">
+            <div class="logo">🎮</div>
+            <h1 class="titulo">Academia Gamer</h1>
+        </div>
+    </header>
+
+    <main class="conten-principal">
+        <section class="menu" id="menu">
+            <h2 class="saludo" id="saludo">¡Bienvenido!</h2>
+            <p class="subtitulo">Selecciona una sección para comenzar.</p>
+
+            <div class="botones-menu">
+                <a href="juego.html" class="boton_1">🎯 Juego</a>
+                <a href="diario.html" class="boton_1">📓 Diario Personal</a>
+                <a href="tareas.html" class="boton_1">✅ Lista de Tareas</a>
+                <a href="notas.html" class="boton_1">🧮 Calculadora de Notas</a>
+                <button class="boton_1 boton_cerrar" id="btn-cerrar">🚪 Cerrar sesión</button>
+                <a href="index.html" class="boton_1">🏠 Volver al inicio</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Academia Gamer &copy; 2026 · Hecho con <span>♥</span> por Juana Valentina</p>
+    </footer>
+
+    <script>
+        const saludo = document.getElementById('saludo');
+        const btnCerrar = document.getElementById('btn-cerrar');
+
+        const nombreUsuario = localStorage.getItem('usuario');
+
+        if (nombreUsuario) {
+            saludo.textContent = '¡Bienvenido, ' + nombreUsuario + '!';
+        } else {
+            saludo.textContent = '¡Bienvenido, Jugador!';
+        }
+
+        btnCerrar.addEventListener('click', () => {
+            localStorage.removeItem('usuario');
+            localStorage.removeItem('registrado');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
+.foto-perfil {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #00E676;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #121212;
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.4);
+}
+
+.foto-perfil img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+}
