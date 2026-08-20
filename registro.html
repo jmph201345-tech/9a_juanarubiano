@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia Gamer · Registro</title>
+    <style>
+        :root {
+            --fondo: #121212;
+            --texto: #F5F5F5;
+            --acento: #00E676;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .titulo {
+            font-size: 2rem;
+            color: var(--acento);
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .h-titulo {
+            font-size: 1.5rem;
+            color: var(--acento);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            border-bottom: 3px solid var(--acento);
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.15);
+        }
+
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            border: 2px solid var(--acento);
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+        }
+
+        .conten-principal {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 20px;
+        }
+
+        .registro {
+            width: 100%;
+            max-width: 420px;
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.12);
+            animation: aparecer 0.5s ease;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .campo {
+            margin-bottom: 20px;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--acento);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1rem;
+            color: var(--texto);
+            background-color: #1e1e1e;
+            border: 2px solid #2a2a2a;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .campo input:focus {
+            border-color: var(--acento);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+        }
+
+        .boton_1 {
+            width: 100%;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #121212;
+            background-color: var(--acento);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.35);
+        }
+
+        .boton_1:hover {
+            transform: translateY(-3px);
+            background-color: #00c853;
+            box-shadow: 0 8px 22px rgba(0, 230, 118, 0.55);
+        }
+
+        .boton_1:active {
+            transform: translateY(0);
+        }
+
+        .mensaje {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            text-align: center;
+            display: none;
+            animation: aparecer 0.3s ease;
+        }
+
+        .mensaje-exito {
+            display: block;
+            color: #121212;
+            background-color: var(--acento);
+            border: 1px solid var(--acento);
+        }
+
+        .mensaje-error {
+            display: block;
+            color: #FF5252;
+            background-color: #2a1212;
+            border: 1px solid #FF5252;
+        }
+
+        .enlace-regreso {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #8a8a8a;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .enlace-regreso:hover {
+            color: var(--acento);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 3px solid var(--acento);
+            background-color: #1a1a1a;
+            font-size: 0.9rem;
+            color: #8a8a8a;
+        }
+
+        footer span {
+            color: var(--acento);
+        }
+
+        @media (max-width: 480px) {
+            .titulo {
+                font-size: 1.35rem;
+            }
+
+            .h-titulo {
+                font-size: 1.25rem;
+            }
+
+            .registro {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="contenedor">
+            <div class="logo">🎮</div>
+            <h1 class="titulo">Academia Gamer</h1>
+        </div>
+    </header>
+
+    <main class="conten-principal">
+        <section class="registro" id="registro">
+            <h2 class="h-titulo">Registro</h2>
+            <p class="parrafo-registro" style="text-align:center; color:#c9c9c9; margin-bottom:20px;">
+                Crea tu cuenta para acceder a la Academia.
+            </p>
+            <form id="form-registro" novalidate>
+                <div class="campo">
+                    <label for="nombre">Nombre de usuario:</label>
+                    <input type="text" id="nombre" name="nombre" autocomplete="username">
+                </div>
+                <div class="campo">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" autocomplete="new-password">
+                </div>
+                <button type="submit" class="boton_1">Registrarse</button>
+            </form>
+            <div class="mensaje" id="mensaje"></div>
+            <a href="index.html" class="enlace-regreso">← Volver al inicio</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>Academia Gamer &copy; 2026 · Hecho con <span>♥</span> por Juana Valentina</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('form-registro');
+        const nombre = document.getElementById('nombre');
+        const password = document.getElementById('password');
+        const mensaje = document.getElementById('mensaje');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombreUsuario = nombre.value.trim();
+            const contrasena = password.value.trim();
+
+            if (nombreUsuario === '' || contrasena === '') {
+                mensaje.className = 'mensaje mensaje-error';
+                mensaje.textContent = '⚠ Error: completa ambos campos para continuar.';
+                return;
+            }
+
+            localStorage.setItem('usuario', nombreUsuario);
+            localStorage.setItem('registrado', 'true');
+
+            mensaje.className = 'mensaje mensaje-exito';
+            mensaje.textContent = '✔ Registro exitoso. ¡Bienvenido, ' + nombreUsuario + '!';
+
+            setTimeout(() => {
+                window.location.href = 'menu.html';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
