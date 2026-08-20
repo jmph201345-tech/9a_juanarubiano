@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia Gamer · Calculadora de Notas</title>
+    <style>
+        :root {
+            --fondo: #121212;
+            --texto: #F5F5F5;
+            --acento: #00E676;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .titulo {
+            font-size: 2rem;
+            color: var(--acento);
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .h-titulo {
+            font-size: 1.5rem;
+            color: var(--acento);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            border-bottom: 3px solid var(--acento);
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.15);
+        }
+
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            border: 2px solid var(--acento);
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+        }
+
+        .conten-principal {
+            flex: 1;
+            width: 100%;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .tarjeta {
+            width: 100%;
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.12);
+            animation: aparecer 0.5s ease;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .campo {
+            margin-bottom: 18px;
+        }
+
+        .campo label {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--acento);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .campo input {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1rem;
+            color: var(--texto);
+            background-color: #1e1e1e;
+            border: 2px solid #2a2a2a;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .campo input:focus {
+            border-color: var(--acento);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+        }
+
+        .grupo-notas {
+            display: flex;
+            gap: 15px;
+        }
+
+        .grupo-notas .campo {
+            flex: 1;
+        }
+
+        .mensaje {
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            text-align: center;
+            display: none;
+            animation: aparecer 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .mensaje-exito {
+            display: block;
+            color: #121212;
+            background-color: var(--acento);
+            border: 1px solid var(--acento);
+        }
+
+        .mensaje-error {
+            display: block;
+            color: #FF5252;
+            background-color: #2a1212;
+            border: 1px solid #FF5252;
+        }
+
+        .botones_1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .boton_1 {
+            display: inline-block;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #121212;
+            background-color: var(--acento);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.35);
+        }
+
+        .boton_1:hover {
+            transform: translateY(-3px);
+            background-color: #00c853;
+            box-shadow: 0 8px 22px rgba(0, 230, 118, 0.55);
+        }
+
+        .boton_1:active {
+            transform: translateY(0);
+        }
+
+        .boton_volver {
+            background-color: #202020;
+            color: var(--acento);
+            border: 2px solid var(--acento);
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.15);
+        }
+
+        .boton_volver:hover {
+            background-color: #2a2a2a;
+            box-shadow: 0 8px 22px rgba(0, 230, 118, 0.35);
+        }
+
+        .boton_eliminar {
+            background-color: #FF5252;
+            box-shadow: 0 4px 12px rgba(255, 82, 82, 0.35);
+        }
+
+        .boton_eliminar:hover {
+            background-color: #e04545;
+            box-shadow: 0 8px 22px rgba(255, 82, 82, 0.55);
+        }
+
+        .boton_limpiar {
+            background-color: #FF5252;
+            box-shadow: 0 4px 12px rgba(255, 82, 82, 0.35);
+        }
+
+        .boton_limpiar:hover {
+            background-color: #e04545;
+            box-shadow: 0 8px 22px rgba(255, 82, 82, 0.55);
+        }
+
+        .resumen {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-bottom: 5px;
+        }
+
+        .resumen-caja {
+            background-color: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.08);
+        }
+
+        .resumen-caja .numero {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--acento);
+            text-shadow: 0 0 12px rgba(0, 230, 118, 0.35);
+        }
+
+        .resumen-caja .etiqueta {
+            font-size: 0.85rem;
+            color: #c9c9c9;
+            margin-top: 4px;
+        }
+
+        .lista-materias {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .materia {
+            background-color: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-left: 4px solid var(--acento);
+            border-radius: 12px;
+            padding: 18px;
+            animation: aparecer 0.4s ease;
+        }
+
+        .materia.pendiente {
+            border-left-color: #FF5252;
+        }
+
+        .materia-cabecera {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .materia-nombre {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--acento);
+            word-break: break-word;
+        }
+
+        .materia-estado {
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+
+        .estado-aprobada {
+            color: #121212;
+            background-color: var(--acento);
+        }
+
+        .estado-pendiente {
+            color: #FF5252;
+            background-color: #2a1212;
+            border: 1px solid #FF5252;
+        }
+
+        .materia-notas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .nota {
+            background-color: #121212;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-size: 0.95rem;
+            color: #c9c9c9;
+        }
+
+        .nota strong {
+            color: var(--texto);
+        }
+
+        .materia-promedio {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--acento);
+            margin-bottom: 12px;
+        }
+
+        .sin-materias {
+            text-align: center;
+            color: #8a8a8a;
+            font-size: 1rem;
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 3px solid var(--acento);
+            background-color: #1a1a1a;
+            font-size: 0.9rem;
+            color: #8a8a8a;
+        }
+
+        footer span {
+            color: var(--acento);
+        }
+
+        @media (max-width: 768px) {
+            .titulo {
+                font-size: 1.6rem;
+            }
+
+            .h-titulo {
+                font-size: 1.25rem;
+            }
+
+            .boton_1 {
+                width: 100%;
+            }
+
+            .grupo-notas {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo {
+                font-size: 1.35rem;
+            }
+
+            .h-titulo {
+                font-size: 1.25rem;
+            }
+
+            .tarjeta {
+                padding: 18px;
+            }
+
+            .resumen {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="contenedor">
+            <div class="logo">🎮</div>
+            <h1 class="titulo">Academia Gamer</h1>
+        </div>
+    </header>
+
+    <main class="conten-principal">
+        <section class="tarjeta" id="nueva-materia">
+            <h2 class="h-titulo">Calculadora de Notas 🧮</h2>
+            <p class="subtitulo" style="text-align:center; color:#c9c9c9; margin-bottom:20px;">
+                Ingresa tus materias y notas (de 0 a 5).
+            </p>
+
+            <div class="mensaje" id="mensaje"></div>
+
+            <form id="form-materia" novalidate>
+                <div class="campo">
+                    <label for="nombre">Nombre de la materia:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ej: Matemáticas" autocomplete="off">
+                </div>
+                <div class="grupo-notas">
+                    <div class="campo">
+                        <label for="nota1">Nota 1:</label>
+                        <input type="number" id="nota1" name="nota1" min="0" max="5" step="0.1" placeholder="0.0 - 5.0">
+                    </div>
+                    <div class="campo">
+                        <label for="nota2">Nota 2:</label>
+                        <input type="number" id="nota2" name="nota2" min="0" max="5" step="0.1" placeholder="0.0 - 5.0">
+                    </div>
+                    <div class="campo">
+                        <label for="nota3">Nota 3:</label>
+                        <input type="number" id="nota3" name="nota3" min="0" max="5" step="0.1" placeholder="0.0 - 5.0">
+                    </div>
+                </div>
+                <div class="botones_1">
+                    <button type="submit" class="boton_1">➕ Agregar materia</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="tarjeta" id="resumen">
+            <h2 class="h-titulo">Resumen General 📊</h2>
+            <div class="resumen">
+                <div class="resumen-caja">
+                    <div class="numero" id="total-materias">0</div>
+                    <div class="etiqueta">Materias</div>
+                </div>
+                <div class="resumen-caja">
+                    <div class="numero" id="promedio-general">0.0</div>
+                    <div class="etiqueta">Promedio general</div>
+                </div>
+                <div class="resumen-caja">
+                    <div class="numero" id="total-aprobadas">0</div>
+                    <div class="etiqueta">Aprobadas</div>
+                </div>
+                <div class="resumen-caja">
+                    <div class="numero" id="total-pendientes">0</div>
+                    <div class="etiqueta">Pendientes</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tarjeta" id="materias">
+            <h2 class="h-titulo">Mis Materias</h2>
+            <div class="lista-materias" id="lista-materias"></div>
+            <div class="botones_1" style="margin-top: 20px;">
+                <button class="boton_1 boton_limpiar" id="btn-limpiar">🧹 Limpiar todas las materias</button>
+            </div>
+        </section>
+
+        <div class="botones_1">
+            <a href="menu.html" class="boton_1 boton_volver">🏠 Volver al menú</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>Academia Gamer &copy; 2026 · Hecho con <span>♥</span> por Juana Valentina</p>
+    </footer>
+
+    <script>
+        const CLAVE_MATERIAS = 'materias';
+        const NOTA_MINIMA = 3.0;
+
+        const formMateria = document.getElementById('form-materia');
+        const campoNombre = document.getElementById('nombre');
+        const campoNota1 = document.getElementById('nota1');
+        const campoNota2 = document.getElementById('nota2');
+        const campoNota3 = document.getElementById('nota3');
+        const mensaje = document.getElementById('mensaje');
+        const listaMaterias = document.getElementById('lista-materias');
+        const btnLimpiar = document.getElementById('btn-limpiar');
+
+        function obtenerMaterias() {
+            try {
+                const datos = JSON.parse(localStorage.getItem(CLAVE_MATERIAS));
+                return Array.isArray(datos) ? datos : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function guardarMaterias(materias) {
+            localStorage.setItem(CLAVE_MATERIAS, JSON.stringify(materias));
+        }
+
+        function mostrarMensaje(tipo, texto) {
+            mensaje.className = 'mensaje mensaje-' + tipo;
+            mensaje.textContent = texto;
+            setTimeout(() => {
+                mensaje.className = 'mensaje';
+            }, 3500);
+        }
+
+        function redondear(num) {
+            return Math.round(num * 100) / 100;
+        }
+
+        function actualizarResumen() {
+            const materias = obtenerMaterias();
+            const total = materias.length;
+            const aprobadas = materias.filter((m) => m.promedio >= NOTA_MINIMA).length;
+            const pendientes = total - aprobadas;
+
+            let promedio = 0;
+            if (total > 0) {
+                const suma = materias.reduce((acc, m) => acc + m.promedio, 0);
+                promedio = redondear(suma / total);
+            }
+
+            document.getElementById('total-materias').textContent = total;
+            document.getElementById('promedio-general').textContent = promedio.toFixed(1);
+            document.getElementById('total-aprobadas').textContent = aprobadas;
+            document.getElementById('total-pendientes').textContent = pendientes;
+        }
+
+        function crearMateriaDOM(materia) {
+            const div = document.createElement('div');
+            div.className = 'materia' + (materia.promedio < NOTA_MINIMA ? ' pendiente' : '');
+            div.dataset.id = materia.id;
+
+            const cabecera = document.createElement('div');
+            cabecera.className = 'materia-cabecera';
+
+            const nombre = document.createElement('h3');
+            nombre.className = 'materia-nombre';
+            nombre.textContent = materia.nombre;
+
+            const estado = document.createElement('span');
+            estado.className = 'materia-estado ' + (materia.promedio >= NOTA_MINIMA ? 'estado-aprobada' : 'estado-pendiente');
+            estado.textContent = materia.promedio >= NOTA_MINIMA ? '✔ Aprobada' : '⚠ Pendiente';
+
+            cabecera.appendChild(nombre);
+            cabecera.appendChild(estado);
+
+            const notas = document.createElement('div');
+            notas.className = 'materia-notas';
+
+            materia.notas.forEach((nota, i) => {
+                const span = document.createElement('span');
+                span.className = 'nota';
+                span.innerHTML = 'Nota ' + (i + 1) + ': <strong>' + nota.toFixed(1) + '</strong>';
+                notas.appendChild(span);
+            });
+
+            const promedio = document.createElement('p');
+            promedio.className = 'materia-promedio';
+            promedio.textContent = '⭐ Promedio: ' + materia.promedio.toFixed(1);
+
+            const boton = document.createElement('button');
+            boton.className = 'boton_1 boton_eliminar';
+            boton.textContent = '🗑 Eliminar';
+
+            boton.addEventListener('click', () => {
+                let materias = obtenerMaterias();
+                materias = materias.filter((m) => m.id !== materia.id);
+                guardarMaterias(materias);
+                div.remove();
+                mostrarMensaje('exito', '✔ Materia eliminada.');
+                actualizarResumen();
+                renderizarMaterias();
+            });
+
+            div.appendChild(cabecera);
+            div.appendChild(notas);
+            div.appendChild(promedio);
+            div.appendChild(boton);
+
+            return div;
+        }
+
+        function renderizarMaterias() {
+            const materias = obtenerMaterias();
+            listaMaterias.innerHTML = '';
+
+            if (materias.length === 0) {
+                const vacio = document.createElement('p');
+                vacio.className = 'sin-materias';
+                vacio.textContent = '📭 Todavía no hay materias. ¡Agrega la primera!';
+                listaMaterias.appendChild(vacio);
+                return;
+            }
+
+            materias.forEach((materia) => {
+                listaMaterias.appendChild(crearMateriaDOM(materia));
+            });
+
+            actualizarResumen();
+        }
+
+        formMateria.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nombre = campoNombre.value.trim();
+            const nota1 = parseFloat(campoNota1.value);
+            const nota2 = parseFloat(campoNota2.value);
+            const nota3 = parseFloat(campoNota3.value);
+
+            if (nombre === '') {
+                mostrarMensaje('error', '⚠ Error: escribe el nombre de la materia.');
+                campoNombre.focus();
+                return;
+            }
+
+            if (campoNota1.value.trim() === '' || campoNota2.value.trim() === '' || campoNota3.value.trim() === '') {
+                mostrarMensaje('error', '⚠ Error: completa las tres notas de la materia.');
+                return;
+            }
+
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
+                mostrarMensaje('error', '⚠ Error: las notas deben ser números válidos.');
+                return;
+            }
+
+            if (nota1 < 0 || nota1 > 5 || nota2 < 0 || nota2 > 5 || nota3 < 0 || nota3 > 5) {
+                mostrarMensaje('error', '⚠ Error: las notas deben estar entre 0 y 5.');
+                return;
+            }
+
+            const promedio = redondear((nota1 + nota2 + nota3) / 3);
+
+            const materias = obtenerMaterias();
+            materias.push({
+                id: Date.now(),
+                nombre: nombre,
+                notas: [nota1, nota2, nota3],
+                promedio: promedio
+            });
+            guardarMaterias(materias);
+
+            campoNombre.value = '';
+            campoNota1.value = '';
+            campoNota2.value = '';
+            campoNota3.value = '';
+
+            mostrarMensaje('exito', '✔ Materia agregada correctamente.');
+            renderizarMaterias();
+        });
+
+        btnLimpiar.addEventListener('click', () => {
+            if (obtenerMaterias().length === 0) {
+                mostrarMensaje('error', '⚠ No hay materias para limpiar.');
+                return;
+            }
+
+            const confirmacion = confirm('⚠ ¿Seguro que deseas eliminar todas las materias? Esta acción no se puede deshacer.');
+            if (!confirmacion) return;
+
+            localStorage.removeItem(CLAVE_MATERIAS);
+            mostrarMensaje('exito', '✔ Todas las materias fueron eliminadas.');
+            renderizarMaterias();
+        });
+
+        renderizarMaterias();
+    </script>
+</body>
+</html>
