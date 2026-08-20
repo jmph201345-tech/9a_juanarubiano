@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia Gamer · Atrapa las Monedas</title>
+    <style>
+        :root {
+            --fondo: #121212;
+            --texto: #F5F5F5;
+            --acento: #00E676;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .titulo {
+            font-size: 2rem;
+            color: var(--acento);
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .h-titulo {
+            font-size: 1.5rem;
+            color: var(--acento);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            border-bottom: 3px solid var(--acento);
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.15);
+        }
+
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            border: 2px solid var(--acento);
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 230, 118, 0.4);
+        }
+
+        .conten-principal {
+            flex: 1;
+            width: 100%;
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .juego {
+            width: 100%;
+            background-color: #1a1a1a;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.12);
+            animation: aparecer 0.5s ease;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .panel-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-caja {
+            background-color: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 10px 22px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--acento);
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.1);
+        }
+
+        .info-caja span {
+            font-size: 1.3rem;
+            color: var(--texto);
+        }
+
+        .info-caja.pulsar {
+            animation: pulsar 0.3s ease;
+        }
+
+        @keyframes pulsar {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.25); }
+            100% { transform: scale(1); }
+        }
+
+        .area-juego {
+            position: relative;
+            width: 100%;
+            height: min(520px, 62vh);
+            min-height: 300px;
+            background-color: #101010;
+            border: 2px solid var(--acento);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 18px rgba(0, 230, 118, 0.25);
+            touch-action: none;
+        }
+
+        .suelo {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 6px;
+            background-color: var(--acento);
+            box-shadow: 0 0 10px rgba(0, 230, 118, 0.6);
+        }
+
+        .jugador {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            background-color: #1e1e1e;
+            border: 2px solid var(--acento);
+            border-radius: 12px;
+            box-shadow: 0 0 14px rgba(0, 230, 118, 0.45);
+            will-change: transform;
+        }
+
+        .moneda {
+            position: absolute;
+            top: -50px;
+            left: 0;
+            width: 44px;
+            height: 44px;
+            background: radial-gradient(circle, #00e67633 0%, transparent 70%);
+            border: 2px solid var(--acento);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(0, 230, 118, 0.5);
+            will-change: transform;
+        }
+
+        .moneda span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            font-size: 26px;
+            animation: girar 1.2s linear infinite;
+        }
+
+        @keyframes girar {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        .overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(18, 18, 18, 0.88);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 20px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .overlay-titulo {
+            font-size: 1.6rem;
+            color: var(--acento);
+            letter-spacing: 1px;
+        }
+
+        .overlay-texto {
+            font-size: 1rem;
+            color: #c9c9c9;
+            max-width: 420px;
+        }
+
+        .overlay-resultado {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--acento);
+            text-shadow: 0 0 18px rgba(0, 230, 118, 0.5);
+        }
+
+        .overlay-mensaje {
+            font-size: 1.15rem;
+            color: var(--texto);
+            max-width: 420px;
+        }
+
+        .botones_1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .boton_1 {
+            display: inline-block;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #121212;
+            background-color: var(--acento);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.35);
+        }
+
+        .boton_1:hover {
+            transform: translateY(-3px);
+            background-color: #00c853;
+            box-shadow: 0 8px 22px rgba(0, 230, 118, 0.55);
+        }
+
+        .boton_1:active {
+            transform: translateY(0);
+        }
+
+        .boton_volver {
+            background-color: #202020;
+            color: var(--acento);
+            border: 2px solid var(--acento);
+            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.15);
+        }
+
+        .boton_volver:hover {
+            background-color: #2a2a2a;
+            box-shadow: 0 8px 22px rgba(0, 230, 118, 0.35);
+        }
+
+        .oculto {
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 3px solid var(--acento);
+            background-color: #1a1a1a;
+            font-size: 0.9rem;
+            color: #8a8a8a;
+        }
+
+        footer span {
+            color: var(--acento);
+        }
+
+        @media (max-width: 768px) {
+            .titulo {
+                font-size: 1.6rem;
+            }
+
+            .h-titulo {
+                font-size: 1.25rem;
+            }
+
+            .area-juego {
+                height: 60vh;
+            }
+
+            .boton_1 {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .titulo {
+                font-size: 1.35rem;
+            }
+
+            .juego {
+                padding: 18px;
+            }
+
+            .info-caja {
+                padding: 8px 16px;
+                font-size: 1rem;
+            }
+
+            .overlay-resultado {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="contenedor">
+            <div class="logo">🎮</div>
+            <h1 class="titulo">Academia Gamer</h1>
+        </div>
+    </header>
+
+    <main class="conten-principal">
+        <section class="juego" id="juego">
+            <h2 class="h-titulo">Atrapa las Monedas 🪙</h2>
+
+            <div class="panel-info">
+                <div class="info-caja">⏱ Tiempo: <span id="temporizador">30</span>s</div>
+                <div class="info-caja">🪙 Puntos: <span id="puntos">0</span></div>
+            </div>
+
+            <div class="area-juego" id="area-juego">
+                <div class="suelo"></div>
+                <div class="jugador" id="jugador">🧑‍🚀</div>
+
+                <div class="overlay" id="overlay">
+                    <h3 class="overlay-titulo" id="overlay-titulo">Atrapa las Monedas</h3>
+                    <p class="overlay-texto" id="overlay-texto">
+                        Usa las flechas <strong>←</strong> y <strong>→</strong> del teclado
+                        para mover a tu personaje y atrapa todas las monedas que puedas.
+                        Tienes <strong>30 segundos</strong>. ¡Buena suerte!
+                    </p>
+                    <div class="botones_1">
+                        <button class="boton_1" id="btn-jugar">🎮 Comenzar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Academia Gamer &copy; 2026 · Hecho con <span>♥</span> por Juana Valentina</p>
+    </footer>
+
+    <script>
+        const areaJuego = document.getElementById('area-juego');
+        const jugador = document.getElementById('jugador');
+        const temporizadorEl = document.getElementById('temporizador');
+        const puntosEl = document.getElementById('puntos');
+        const overlay = document.getElementById('overlay');
+        const overlayTitulo = document.getElementById('overlay-titulo');
+        const overlayTexto = document.getElementById('overlay-texto');
+        const btnJugar = document.getElementById('btn-jugar');
+
+        const DURACION = 30;
+        const VELOCIDAD_JUGADOR = 340;
+
+        let juegoActivo = false;
+        let puntos = 0;
+        let tiempoRestante = DURACION;
+        let jugadorX = 0;
+        let teclas = {};
+        let monedas = [];
+        let ultimoTiempo = 0;
+        let tiempoSpawn = 0;
+        let animacionId = null;
+
+        function obtenerAnchoArea() {
+            return areaJuego.clientWidth;
+        }
+
+        function obtenerJugadorAncho() {
+            return jugador.offsetWidth;
+        }
+
+        function centrarJugador() {
+            jugadorX = (obtenerAnchoArea() - obtenerJugadorAncho()) / 2;
+            jugador.style.transform = 'translateX(' + jugadorX + 'px)';
+        }
+
+        function crearMoneda() {
+            const moneda = document.createElement('div');
+            moneda.className = 'moneda';
+            moneda.innerHTML = '<span>🪙</span>';
+            areaJuego.appendChild(moneda);
+
+            const anchoMoneda = moneda.offsetWidth;
+            const maxX = obtenerAnchoArea() - anchoMoneda;
+            const x = Math.random() * maxX;
+
+            moneda.style.left = x + 'px';
+
+            const velocidad = 110 + Math.random() * 140;
+            monedas.push({ el: moneda, x: x, y: -50, velocidad: velocidad });
+        }
+
+        function colisionan(a, b) {
+            return (
+                a.x < b.x + b.ancho &&
+                a.x + a.ancho > b.x &&
+                a.y < b.y + b.alto &&
+                a.y + a.alto > b.y
+            );
+        }
+
+        function actualizarPuntaje() {
+            puntosEl.textContent = puntos;
+            const infoPuntos = puntosEl.parentElement;
+            infoPuntos.classList.remove('pulsar');
+            void infoPuntos.offsetWidth;
+            infoPuntos.classList.add('pulsar');
+        }
+
+        function terminarJuego() {
+            juegoActivo = false;
+            cancelAnimationFrame(animacionId);
+
+            monedas.forEach(function (m) {
+                m.el.remove();
+            });
+            monedas = [];
+
+            overlayTitulo.textContent = '⏱ ¡Tiempo agotado!';
+            overlayTexto.classList.add('oculto');
+            temporizadorEl.textContent = '0';
+
+            let mensaje;
+            if (puntos >= 20) {
+                mensaje = '🏆 ¡LEYENDA! Eres imparable.';
+            } else if (puntos >= 12) {
+                mensaje = '⚡ ¡Increíble! Reflejos de profesional.';
+            } else if (puntos >= 6) {
+                mensaje = '👏 ¡Buen trabajo! Sigue practicando.';
+            } else if (puntos > 0) {
+                mensaje = '😄 ¡Bien jugado! Intenta superarte.';
+            } else {
+                mensaje = '💪 ¡Oh no! No atrapaste ninguna. ¡Inténtalo de nuevo!';
+            }
+
+            overlayTexto.classList.remove('oculto');
+            overlayTexto.innerHTML =
+                '<div class="overlay-resultado">Puntaje final: ' + puntos + ' monedas</div>' +
+                '<p class="overlay-mensaje">' + mensaje + '</p>';
+
+            btnJugar.textContent = '🔄 Jugar de nuevo';
+
+            overlay.style.display = 'flex';
+        }
+
+        function iniciarJuego() {
+            puntos = 0;
+            tiempoRestante = DURACION;
+            teclas = {};
+            monedas = [];
+            tiempoSpawn = 0;
+
+            overlay.style.display = 'none';
+            overlayTexto.classList.remove('oculto');
+            btnJugar.textContent = '🎮 Comenzar';
+
+            centrarJugador();
+            temporizadorEl.textContent = tiempoRestante;
+            puntosEl.textContent = '0';
+
+            juegoActivo = true;
+            ultimoTiempo = performance.now();
+            animacionId = requestAnimationFrame(bucle);
+        }
+
+        function bucle(ahora) {
+            if (!juegoActivo) return;
+
+            let dt = (ahora - ultimoTiempo) / 1000;
+            if (dt > 0.1) dt = 0.1;
+            ultimoTiempo = ahora;
+
+            const anchoArea = obtenerAnchoArea();
+            const anchoJugador = obtenerJugadorAncho();
+
+            if (teclas['ArrowLeft']) {
+                jugadorX -= VELOCIDAD_JUGADOR * dt;
+            }
+            if (teclas['ArrowRight']) {
+                jugadorX += VELOCIDAD_JUGADOR * dt;
+            }
+
+            if (jugadorX < 0) jugadorX = 0;
+            if (jugadorX > anchoArea - anchoJugador) jugadorX = anchoArea - anchoJugador;
+            jugador.style.transform = 'translateX(' + jugadorX + 'px)';
+
+            const rectJugador = {
+                x: jugadorX,
+                y: areaJuego.clientHeight - jugador.offsetHeight - 10,
+                ancho: anchoJugador,
+                alto: jugador.offsetHeight
+            };
+
+            tiempoRestante -= dt;
+            if (tiempoRestante <= 0) {
+                tiempoRestante = 0;
+                temporizadorEl.textContent = Math.ceil(tiempoRestante);
+                terminarJuego();
+                return;
+            }
+            temporizadorEl.textContent = Math.ceil(tiempoRestante);
+
+            tiempoSpawn -= dt;
+            if (tiempoSpawn <= 0) {
+                crearMoneda();
+                tiempoSpawn = 0.4 + Math.random() * 0.5;
+            }
+
+            const alturaArea = areaJuego.clientHeight;
+
+            for (let i = monedas.length - 1; i >= 0; i--) {
+                const m = monedas[i];
+                m.y += m.velocidad * dt;
+                m.el.style.transform = 'translateY(' + m.y + 'px)';
+
+                const rectMoneda = {
+                    x: m.x,
+                    y: m.y,
+                    ancho: m.el.offsetWidth,
+                    alto: m.el.offsetHeight
+                };
+
+                if (colisionan(rectJugador, rectMoneda)) {
+                    m.el.remove();
+                    monedas.splice(i, 1);
+                    puntos++;
+                    actualizarPuntaje();
+                    continue;
+                }
+
+                if (m.y > alturaArea) {
+                    m.el.remove();
+                    monedas.splice(i, 1);
+                }
+            }
+
+            animacionId = requestAnimationFrame(bucle);
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                teclas[e.key] = true;
+            }
+        });
+
+        document.addEventListener('keyup', function (e) {
+            teclas[e.key] = false;
+        });
+
+        btnJugar.addEventListener('click', iniciarJuego);
+
+        centrarJugador();
+        window.addEventListener('resize', function () {
+            if (juegoActivo) {
+                if (jugadorX > obtenerAnchoArea() - obtenerJugadorAncho()) {
+                    jugadorX = obtenerAnchoArea() - obtenerJugadorAncho();
+                }
+            }
+            centrarJugador();
+        });
+    </script>
+</body>
+</html>
